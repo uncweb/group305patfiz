@@ -1,0 +1,227 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>Untitled Document</title>
+<script language="JavaScript" type="text/JavaScript">
+function chapter_test(question,answers,right_indexes,ans) {
+	this.question=question;
+	this.answers=answers;
+	this.right_indexes=right_indexes;
+	this.ans=ans;
+} //eend function chapter test
+
+var record_index=0;
+var chapter_tests=new Array();
+for(i=1;i<=37;i++) {
+	document.writeln('<script type="text/javascript" src="data/' + i + '.js"><\/script>');
+}
+
+var exam_started=false;
+if(self==top) {
+	top.location='../frameset_exam.htm';
+}
+
+var catalog='';
+try {
+	catalog=top.leftFrame.catalog;	
+} catch(err) {
+	catalog='';
+}
+
+function num_increase() {
+	nm=document.getElementById('questions_num');
+	if(parseInt(nm.value)<100) nm.value=parseInt(nm.value)+1;
+}
+
+function num_decrease() {
+	nm=document.getElementById('questions_num');
+	if(parseInt(nm.value)>20) nm.value=parseInt(nm.value)-1;
+}
+
+function random_number(lower_bound,upper_bound) {
+	var initial_random=(upper_bound - lower_bound + 1) * (Math.random() + lower_bound);
+	return Math.floor(initial_random);
+}
+
+function get_random_question(lower_bound,upper_bound) {
+	a=random_number(lower_bound,upper_bound);
+	if(chapter_tests[a]==false) {
+		return get_random_question(lower_bound,upper_bound);
+	} else {
+		aa=chapter_tests[a];
+		chapter_tests[a]=false;
+		return aa;
+	}
+}
+
+function start_exam_i() {
+	nm=document.getElementById('questions_num');
+	q_nm=parseInt(nm.value);
+	document.getElementById('num_select_div').innerHTML='<p>Идет построение экзамена...</p>';
+	a=setTimeout("start_exam(q_nm)",500);
+}
+
+function start_exam(q_nm) {
+	e_area=document.getElementById('exam_area');
+	exam_questions=new Array();	
+	all_questions_num=chapter_tests.length;
+	for(i=0;i<q_nm;i++) {
+		exam_questions[i]=get_random_question(0,(all_questions_num-1));
+	}
+	chapter_tests=false;
+	
+	//e_area.innerHTML+='<h2>'+ top.leftFrame.name +'</h2>';
+	e_area.innerHTML='';
+	e_area.innerHTML+='<a name="results"> </a><div class="exam_results" id="exam_results"></div>';
+	var rus_letters=new Array('А','Б','В','Г','Д','Е','Ж','З','К','Л');
+	e_area.innerHTML+='<div>';
+	for(i=0;i<exam_questions.length;i++) {
+		s='<div class="test_block">';
+		s+='<div class="question">'+ (i+1)+ '. ' + exam_questions[i].question +'</div>';
+		s+='<table border=0 cellpadding=2 width="98%" cellspacing=1 class="answers">';
+		var in_tp='radio';
+		if(exam_questions[i].right_indexes.length>1) in_tp='checkbox';
+		for(a=0;a<exam_questions[i].answers.length;a++) {
+			s+='<tr onMouseOver="this.style.backgroundColor=\'#E2EBFA\';" onMouseOut="this.style.backgroundColor=\'\'"><td width=10><input type="'+ in_tp +'" name="answer_'+ i + '" id="answer_'+ i +'_'+ a +'" value="'+ a +'" onClick="check_completion();"></td><td><div id="div_answer_'+ i +'_'+ a +'"><label for="answer_'+ i +'_'+ a +'">'+ rus_letters[a] + '. ' + exam_questions[i].answers[a][0] +';</label></div></td></tr>';
+		}
+		s+='</table>';
+		s+='<div style="display:none;" id="exam_q_a_'+ i +'">'+ exam_questions[i].ans +'</div>';
+		s+='</div>' + "\r\n";
+		e_area.innerHTML+=s;
+	}
+	e_area.innerHTML+='</div>';
+	s='<div class="page_bar">';
+	s+='<button disabled onClick="show_results();" style="background-color: #EEEEEE;" id="show_results_btn">Показать результаты</button>';
+	s+='</div>';	
+	e_area.innerHTML+=s;
+	top.leftFrame.stop_clock=false;
+	clock_div=top.leftFrame.document.getElementById('clock_div');
+	clock_div.style.display='';
+	top.leftFrame.Up();
+	document.getElementById('num_select_div').outerHTML='';
+}
+
+function check_completion() {
+	var completed=true;
+	for(i=0;i<exam_questions.length;i++) {
+		var chk=false;
+		a_g=eval('answer_'+i);
+		for(a=0;a<a_g.length;a++) {
+			if(a_g[a].checked) {
+				chk=true;
+			}
+		}
+		if(chk==false) {
+			completed=false;
+			break;
+		}
+	}
+	if(completed==false) return false;
+	//now what to do if test is completed
+	var btn=document.getElementById('show_results_btn');
+	btn.style.backgroundColor='';
+	btn.disabled=false;
+	top.leftFrame.stop_clock=true;
+}
+
+function show_results() {
+	//disable all answers
+	for(i=0;i<exam_questions.length;i++) {
+		var a_g=eval('answer_'+i);
+		for(a=0;a<a_g.length;a++) {
+			a_g[a].disabled=true;
+		}
+	}
+	
+	var right_counter=0;
+	var wrong_counter=0;
+	for(i=0;i<exam_questions.length;i++) {
+			var answered_right=true;
+			document.getElementById('exam_q_a_'+i).style.display='block';
+			for(a=0;a<exam_questions[i].answers.length;a++) {
+				var in_status=document.getElementById('answer_'+ i +'_'+ a).checked;
+				if(exam_questions[i].answers[a][1]=='yes') {
+					document.getElementById('div_answer_'+ i +'_'+ a).style.color='green';
+					document.getElementById('div_answer_'+ i +'_'+ a).style.fontWeight='bold';
+					if(in_status==false) answered_right=false;
+				} else if(exam_questions[i].answers[a][1]=='no' && in_status==true) {
+					document.getElementById('div_answer_'+ i +'_'+ a).style.color='red';
+					document.getElementById('div_answer_'+ i +'_'+ a).style.fontWeight='bold';
+					answered_right=false;
+				} 
+			}
+	
+			if(answered_right==true) {
+				right_counter++;
+			} else {
+				wrong_counter++;
+			}
+		/*
+		var answer_id=-1;
+		var a_g=eval('answer_'+i);
+		for(a=0;a<a_g.length;a++) {
+			if(a_g[a].checked) { answer_id=a; }
+		}
+		if(exam_questions[i].right_index==answer_id) {
+			right_counter++;
+		} else {
+			wrong_counter++;
+			document.getElementById('div_answer_'+ i +'_'+ answer_id).style.color='red';
+		}
+		document.getElementById('div_answer_'+ i +'_'+ exam_questions[i].right_index).style.color='green';
+		document.getElementById('div_answer_'+ i +'_'+ exam_questions[i].right_index).style.fontWeight='bold';
+		*/
+	}
+	var res=document.getElementById('exam_results');
+	var tbl='<table cellspacing=2 cellpadding=10>';
+	tbl+='<tr><th align=center>Процент правильных ответов</th><th align=center>Оценка</th></tr>';
+	var right_rate=parseInt(right_counter/(right_counter+wrong_counter)*100);
+	var points=0;
+	if(right_rate>90) {
+		points=5;
+	} else if(right_rate>80) {
+		points=4;
+	} else if(right_rate>70) {
+		points=3;
+	} else {
+		points=2;
+	}
+	tbl+='<tr><td align=center>'+ right_rate +'%</td><td align=center>'+ points +'</td></tr>';
+	tbl+='</table>';
+	res.innerHTML=tbl;
+	self.location='#results';
+}
+
+</script>
+<link href="../../styles/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Тестовый экзамен</h1>
+<script language="JavaScript" type="text/JavaScript">
+if(exam_started==false) {
+	document.writeln('<div class="page_bar" id="num_select_div">');
+	document.writeln('<p><strong>Выберите количество вопросов для экзамена</strong></p>');
+	document.writeln('<form name="form_dcscs">');
+  	document.writeln('<table width="300" height="24" border="0" cellpadding="2" cellspacing="0">');
+  	document.writeln('<tr>');
+    document.writeln('<td width="20" rowspan="2" align="right" valign="middle"><input name="questions_num" type="text" id="questions_num" style="font-size:20px; " value="20" size="2" maxlength="2"></td>');
+    document.writeln('<td height="12" align="left" valign="bottom"><a href="javascript:num_increase()"><img src="../../menu_images/bullets/arrow_up.gif" alt="Увеличить количество вопросов" width="20" height="8" border="0"></a></td>');
+  	document.writeln('</tr>');
+  	document.writeln('<tr>');
+    document.writeln('<td align="left" valign="top"><a href="javascript:num_decrease()"><img src="../../menu_images/bullets/arrow_down.gif" alt="Уменьшить количество вопросов" width="20" height="8" border="0"></a></td>');
+  	document.writeln('</tr>');
+	document.writeln('</table>');
+	document.writeln('<div style="margin-top: 15px;" class="redlinks"><a href="javascript:void(0)" onClick="document.form_dcscs.questions_num.value=20">20</a></span> <span><a href="javascript:void(0)" onClick="document.form_dcscs.questions_num.value=40">40</a></span> <a href="javascript:void(0)" onClick="document.form_dcscs.questions_num.value=60">60</a></span> <a href="javascript:void(0)" onClick="document.form_dcscs.questions_num.value=80">80</a></span> <a href="javascript:void(0)" onClick="document.form_dcscs.questions_num.value=100">100</a></span></div>');
+	document.writeln('</form>');
+	document.writeln('<button onClick="start_exam_i()">НАЧАТЬ ЭКЗАМЕН</button>');
+	document.writeln('</div>');
+	document.writeln('В случае если варианты ответов с кружочками, то возможен только 1 правильный ответ, если варианты ответов представлены с квадратиками, то вариантов ответа возможно несколько.В круглых скобках после вопроса указано число правильных ответов.');
+}
+</script>
+<div id="exam_area">
+</div>
+</body>
+</html>

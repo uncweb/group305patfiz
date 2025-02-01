@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>Тесты для самоконтроля</title>
+<script language="JavaScript" type="text/JavaScript">
+
+if(self==top) {
+	top.location='../frameset_tests.htm';
+}
+
+chapter_no='';
+try {
+	chapter_no=top.leftFrame.chapter_no;	
+} catch(err) {
+	chapter_no='';
+}
+
+if(!chapter_no || chapter_no=='undefined') {
+	chapter_no='';
+	
+} else {
+	q=1;
+}
+//load the data
+if(chapter_no!='') {
+	// JavaScript Document
+	function chapter_test(question,answers,right_indexes) {
+		this.question=question;
+		this.answers=answers;
+		this.right_indexes=right_indexes;
+	} //eend function chapter test
+
+	var record_index=0;
+	var chapter_tests=new Array();
+
+	//document.writeln('<\/script>');
+	document.writeln('<script type="text/javascript" src="data/'+ top.leftFrame.catalog +'"><\/script>');
+	//document.writeln('<script>');
+}
+
+function check_answer(question_id,tp) {
+	var answered_right=true;
+	var answered_full=true;
+	for(i=0;i<chapter_tests[question_id].answers.length;i++) {
+		var in_status=document.getElementById('answer_'+ question_id +'_'+ i).checked;
+		if(chapter_tests[question_id].answers[i][1]=='yes' && in_status==true) {
+			document.getElementById('div_answer_'+ question_id +'_'+ i).style.color='green';
+			document.getElementById('div_answer_'+ question_id +'_'+ i).style.fontWeight='bold';
+		} else if(chapter_tests[question_id].answers[i][1]=='no' && in_status==true) {
+			document.getElementById('div_answer_'+ question_id +'_'+ i).style.color='red';
+			document.getElementById('div_answer_'+ question_id +'_'+ i).style.fontWeight='bold';
+			answered_right=false;
+		} else if(chapter_tests[question_id].answers[i][1]=='yes' && in_status==false) {
+			answered_full=false;
+		} else {
+			document.getElementById('div_answer_'+ question_id +'_'+ i).style.color='';
+			document.getElementById('div_answer_'+ question_id +'_'+ i).style.fontWeight='';					
+		}
+	}
+	
+	if(answered_right==true && answered_full==false) {
+		alert('Вы дали неполный ответ. Укажите остальные правильные ответы на этот вопрос');
+	} else if(answered_right==true && answered_full==true) {
+		alert('Ответ верный');
+	} else {
+		alert('Вы дали неправильный ответ');
+	}
+	
+	
+	/*
+	for(i=0;i<chapter_tests[question_id].answers.length;i++) {
+		document.getElementById('div_answer_'+ question_id +'_'+ i).style.color='';
+		document.getElementById('div_answer_'+ question_id +'_'+ i).style.fontWeight='';
+		if(chapter_tests[question_id].right_index!=answer_id && i==answer_id) {
+			document.getElementById('div_answer_'+ question_id +'_'+ i).style.color='red';
+			alert('Вы дали неправильный ответ');
+		}
+		
+	}
+	if(chapter_tests[question_id].right_index==answer_id) {	
+		document.getElementById('div_answer_'+ question_id +'_'+ answer_id).style.color='green';
+		document.getElementById('div_answer_'+ question_id +'_'+ answer_id).style.fontWeight='bold';
+		alert('Ответ верный');
+			
+	}
+	*/
+} //end
+
+function reset_question(question_id) {
+	for(i=0;i<chapter_tests[question_id].answers.length;i++) {
+		document.getElementById('div_answer_'+ question_id +'_'+ i).style.color='';
+		document.getElementById('div_answer_'+ question_id +'_'+ i).style.fontWeight='';
+		document.getElementById('answer_'+ question_id +'_'+ i).checked=false;
+	}
+	
+}
+
+function reset_all_answers() {
+	for(a=0;a<chapter_tests.length;a++) {
+		for(i=0;i<chapter_tests[a].answers.length;i++) {
+			document.getElementById('div_answer_'+ a +'_'+ i).style.color='';
+			document.getElementById('div_answer_'+ a +'_'+ i).style.fontWeight='';
+			document.getElementById('answer_'+ a +'_'+ i).checked=false;
+		}
+	}
+}
+
+</script>
+
+
+<link href="../../styles/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Тесты для самоконтроля</h1>
+<script language="JavaScript" type="text/JavaScript">
+if(chapter_no=='') {
+	document.writeln('<p><strong>Выберите тест в левом меню</strong></p>');
+} else {
+	document.writeln('<h2>Глава '+ chapter_no +'</h2>');
+	document.writeln('<div class="page_bar">');
+		document.writeln('<button onClick="reset_all_answers();">Сбросить все ответы</button>');
+	document.writeln('</div>');
+	var rus_letters=new Array('А','Б','В','Г','Д','Е','Ж','З','К','Л');
+	document.writeln('<div>');
+	for(i=0;i<chapter_tests.length;i++) {
+		document.writeln('<div class="test_block">');
+		document.writeln('<div class="question">'+ (i+1)+ '. ' + chapter_tests[i].question);
+			if(chapter_tests[i].right_indexes.length>1) document.writeln(' <div style="font-weight: normal;">Выберите все правильные ответы</div>');
+		document.writeln('</div>')
+		document.writeln('<table border=0 cellpadding=2 width="98%" cellspacing=1 class="answers">');
+		var in_tp='radio';
+		if(chapter_tests[i].right_indexes.length>1) in_tp='checkbox';
+		for(a=0;a<chapter_tests[i].answers.length;a++) {
+			document.writeln('<tr onMouseOver="this.style.backgroundColor=\'#E2EBFA\';" onMouseOut="this.style.backgroundColor=\'\'"><td width=10><input type="'+ in_tp +'" name="answer_'+ i + '" id="answer_'+ i +'_'+ a +'" value="'+ a +'"></td><td><div id="div_answer_'+ i +'_'+ a +'"><label for="answer_'+ i +'_'+ a +'">'+ rus_letters[a] + '. ' + chapter_tests[i].answers[a][0] +';</label></div></td></tr>');
+		}
+		document.writeln('</table>');
+		document.writeln('<div><button onClick="check_answer('+ i +',\''+ in_tp +'\');">Проверить ответ</button> <button onClick="reset_question('+ i +');">Сбросить ответ</button></div>');
+		document.writeln('</div>');
+	}
+	document.writeln('</div>');
+	document.writeln('<div class="page_bar">');
+		document.writeln('<button onClick="reset_all_answers();">Сбросить все ответы</button>');
+	document.writeln('</div>');
+}
+</script>
+</body>
+</html>

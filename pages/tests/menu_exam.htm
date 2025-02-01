@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>Untitled Document</title>
+<script language="JavaScript" type="text/JavaScript">
+var catalog='';
+var name='';
+function start_exam(local_catalog, local_name) {
+	catalog=local_catalog;
+	name=local_name;
+	top.mainFrame.location.reload();
+} //end of the start_test
+</script>
+
+<SCRIPT LANGUAGE="JavaScript">
+
+<!-- This script and many more are available free online at -->
+<!-- The JavaScript Source!! http://javascript.internet.com -->
+
+<!-- Begin
+var up,down;var min1,sec1;var cmin1,csec1,cmin2,csec2;var stop_clock;
+stop_clock=false;
+function Minutes(data) {
+for(var i=0;i<data.length;i++) 
+if(data.substring(i,i+1)==":") 
+break;  
+return(data.substring(0,i)); 
+}
+function Seconds(data) {        
+for(var i=0;i<data.length;i++) 
+if(data.substring(i,i+1)==":") 
+break;  
+return(data.substring(i+1,data.length)); 
+}
+function Display(min,sec) {     
+var disp;       
+if(min<=9) disp=" 0";   
+else disp=" ";  
+disp+=min+":";  
+if(sec<=9) disp+="0"+sec;       
+else disp+=sec; 
+return(disp); 
+}
+function Up() { 
+cmin1=0;        
+csec1=0;        
+//min1=0+Minutes(document.sw.beg1.value); 
+//sec1=0+Seconds(document.sw.beg1.value); 
+UpRepeat(); 
+}
+function UpRepeat() {   
+csec1++;        
+if(csec1==60) {
+csec1=0; cmin1++; 
+}
+//document.sw.disp1.value=Display(cmin1,csec1);
+document.getElementById('clock').innerHTML=Display(cmin1,csec1);   
+if(stop_clock!=true) up=setTimeout("UpRepeat()",1000); 
+}
+function Down() {       
+cmin2=1*Minutes(document.sw.beg2.value);        
+csec2=0+Seconds(document.sw.beg2.value);        
+DownRepeat(); 
+}
+function DownRepeat() { 
+csec2--;        
+if(csec2==-1) { 
+csec2=59; cmin2--; 
+}       
+document.sw.disp2.value=Display(cmin2,csec2);   
+if((cmin2==0)&&(csec2==0)) 
+alert("Countdown Stopped");     
+else down=setTimeout("DownRepeat()",1000); 
+}
+// End -->
+</SCRIPT>
+
+
+<link href="../../styles/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body  leftmargin="0" rightmargin="0" marginheight="0" marginwidth="0" topmargin="0" class="menuframe">
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="left" valign="top"><img src="logo.jpg" width="200" height="35"></td>
+  </tr>
+  <tr>
+    <td valign="top"><div class="left_menu">
+
+<CENTER>
+<TABLE border="0" width="100%">
+<tr align="center">
+<td>
+<div style="display:none; " id="clock_div">
+<p style="font-size:14px; "><strong>Время экзамена </strong></p>
+  <p>
+  <div id="clock" style="font-size:24px; font-weight:bold; "></div>
+  </p>
+</div>  
+  </td>
+</tr>
+</TABLE>
+</CENTER>	
+
+	</div></td>
+  </tr>
+</table>
+
+</body>
+</html>
