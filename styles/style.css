@@ -1,0 +1,263 @@
+/* CSS Document */
+
+body {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 14px;
+}
+
+body.lbg {
+	background-color: #E8EAEC;
+}
+
+button {
+	font-size: 14px;
+}
+
+
+
+.symbol {
+	font-family: Symbol;
+}
+
+.test_block {
+	margin-bottom: 20px;
+}
+
+.test_block .question {
+	font-weight:bold;
+
+}
+
+.test_block .answers {
+	margin: 5px 0px 5px 10px;
+}
+
+.test_block table tr {
+	background-color: #F2F2F2;
+}
+
+.test_block button {
+	background-color:#009933;
+	border: 1px solid white;
+	color: white;
+}
+
+.page_bar {
+	margin-bottom: 18px;
+	margin-top: 18px;
+	border-bottom: 1px solid #0066FF;
+	border-top: 1px solid #0066FF;
+	padding: 5px 0px 5px 0px;
+}
+
+.page_bar button {
+	background-color:#009933;
+	border: 1px solid white;
+	color: white;
+}
+
+img.firstpage_icon {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+h1 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	color: #CC0000;
+}
+
+h2 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 22px;
+	color: #FF9900;
+}
+
+
+
+h3 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	color: #FF9900;
+	margin-bottom: 3px;
+}
+
+h4 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight:bold;
+}
+
+input.history {
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	border: 1px solid #0066FF;
+	width: 90%;
+}
+
+textarea.history {
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	border: 1px solid #0066FF;
+	width: 90%;
+}
+
+button.history {
+	background-color:#009933;
+	border: 1px solid white;
+	color: white;
+}
+
+.left_menu {
+	margin-top:15px;
+	margin-left: 10px;
+	margin-right: 5px;
+	margin-bottom: 15px;
+}
+
+
+.left_menu .mainnode a {
+	text-decoration:none;
+	color: #003EB0;
+	font-weight: bold;
+	font-family:Geneva, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.left_menu .mainnode a:hover {
+	color:#CC0000;
+}
+
+.left_menu img.bullet {
+	margin-right: 2px;
+}
+
+.left_menu_extended {
+	margin-top:15px;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 15px;
+}
+
+.left_menu_extended .super_node {
+	font-family:Geneva, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color:#CC0000;
+	margin-top:10px;
+}
+
+.left_menu_extended .super_node_2 {
+	font-family:Geneva, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	margin-left:10px;
+	color: #003EB0;
+	margin-top: 10px;
+}
+
+.left_menu_extended .clicknode {
+	margin-left: 20px;
+}
+
+.left_menu_extended .clicknode img.bullet {
+	margin-right: 5px;
+}
+
+.left_menu_extended .clicknode a {
+	color: #003EB0;
+	font-weight: bold;
+	font-family:Geneva, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	
+}
+
+.left_menu_extended .clicknode a:hover {
+	color:#CC0000;
+}
+
+.image_thumbs {
+	border: 2px solid #CC0000;
+	padding: 5px 0px 5px 0px;
+}
+
+
+
+.image_thumbs a.thumb  img {
+	border: 1px solid #CCCCCC;
+	margin: 5px;
+	
+}
+
+.exam_results {
+	margin-bottom: 10px;
+}
+
+.exam_results table {
+	background-color: #009933;
+}
+
+.exam_results table th {
+	color:#FFFFFF;
+}
+
+.exam_results table td {
+	font-size:24px;
+	font-weight: bold;
+	background-color: white;
+}
+
+.book_contents_large {
+	color: #00468C;
+}
+
+.book_contents_large li {
+	margin-bottom: 10px;
+}
+
+.book_contents_large a {
+	color:#CC0000;
+}
+
+.redlinks a {
+	color:#CC0000;
+}
+
+p.Chap-Name {
+	font-size: 22px;
+	color: #CC0000;	
+	margin-top: 10px;
+	margin-bottom: 10px;
+	
+}
+
+p.Chap-Num {
+	font-size: 24px;
+	color: #CC0000;	
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.left_menu ul {
+	font-size:12px;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+.left_menu ul li {
+	color:#0066FF;
+}
+
+.left_menu ul li a {
+	color:#CC0000;
+}	
+
+.top_menu {
+	margin: 10px;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+.top_menu a {
+	color:#CC0000;
+}
