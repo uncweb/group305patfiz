@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>Untitled Document</title>
+<script language="JavaScript" type="text/JavaScript">
+function show_main_frame(url) {
+	top.mainFrame.location.href=url;
+}
+function show_top_frame(url) {
+	top.location.href=url;
+}
+</script>
+<style type="text/css">
+<!--
+
+-->
+</style>
+<link href="../../styles/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body  leftmargin="0" rightmargin="0" marginheight="0" marginwidth="0" topmargin="0" class="lbg">
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="left" valign="top"><img src="logo.jpg" width="200" height="35"></td>
+  </tr>
+  <tr>
+    <td valign="top"><div class="left_menu">
+<ul>
+    <li><a href="javascript:show_top_frame('../frameset_exam.htm')">Тестовый экзамен</a></li>
+    <li><a href="javascript:show_main_frame('q.htm')">Задачи</a></li>
+	<li><a href="javascript:show_main_frame('a.htm')">Алгоритм по решению задач</a></li>
+  </ul>	
+	
+	</div></td>
+  </tr>
+</table>
+
+</body>
+</html>
